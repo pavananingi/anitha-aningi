@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Anitha Aningi | Pharmacist</title>
+
+<!-- =====================
+    GLOBAL STYLES
+===================== -->
+<style>
+:root {
+  --bg-dark: #0b0f19;
+  --bg-card: #12182b;
+  --primary: #4fd1c5;
+  --secondary: #6c63ff;
+  --text-light: #e6e9f0;
+  --text-muted: #9aa4bf;
+  --gradient: linear-gradient(135deg, #4fd1c5, #6c63ff);
+}
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-light);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* =====================
+    PRELOADER
+===================== */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #1f2545;
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =====================
+    NAVBAR
+===================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(11,15,25,0.8);
+  backdrop-filter: blur(10px);
+}
+
+.navbar {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+
+nav a.active,
+nav a:hover {
+  color: var(--primary);
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  left: 0;
+  bottom: -6px;
+  background: var(--gradient);
+  transition: width 0.3s;
+}
+
+nav a:hover::after,
+nav a.active::after {
+  width: 100%;
+}
+
+/* HAMBURGER */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: var(--text-light);
+  margin: 4px 0;
+  transition: 0.3s;
+}
+
+/* =====================
+    SECTIONS
+===================== */
+section {
+  padding: 5rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* HERO */
+.hero {
+  min-height: 90vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background:
+    radial-gradient(circle at top right, #1f2545, transparent),
+    radial-gradient(circle at bottom left, #141a33, transparent);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+.hero span {
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  max-width: 600px;
+  margin: 1.5rem auto;
+  color: var(--text-muted);
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  border-radius: 30px;
+  background: var(--gradient);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(79,209,197,0.4);
+}
+
+/* ABOUT */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  align-items: center;
+}
+
+.card {
+  background: var(--bg-card);
+  padding: 2rem;
+  border-radius: 16px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* SERVICES */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 2rem;
+}
+
+/* PROJECTS */
+.filters {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.filters button {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 0.4rem 1rem;
+  margin: 0.3rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.filters button.active {
+  background: var(--gradient);
+  color: #fff;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 2rem;
+}
+
+/* BLOG */
+.blogs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+  gap: 2rem;
+}
+
+/* CONTACT */
+form {
+  max-width: 600px;
+  margin: auto;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+  background: #0f1430;
+  border: 1px solid #2a3160;
+  color: #fff;
+  border-radius: 8px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+}
+
+/* =====================
+    ANIMATIONS ON SCROLL
+===================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================
+    RESPONSIVE
+===================== */
+@media (max-width: 768px) {
+  nav ul {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    background: #0b0f19;
+    flex-direction: column;
+    width: 200px;
+    padding: 2rem;
+    transition: right 0.4s;
+  }
+
+  nav ul.open {
+    right: 0;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div class="loader"></div>
+</div>
+
+<!-- NAVBAR -->
+<header>
+  <div class="navbar">
+    <div class="logo">Anitha Aningi</div>
+    <nav>
+      <ul id="menu">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <div class="container reveal">
+    <h1>Hi, I’m <span>Anitha Aningi</span></h1>
+    <p>
+      Pharmacist & Assistant Manager at Gland Pharma, specializing in
+      pharmaceutical operations, compliance, and quality excellence.
+    </p>
+    <a href="#contact" class="btn">Get in Touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container about-grid reveal">
+    <div class="card">
+      <h2>About Me</h2>
+      <p>
+        I am a dedicated Pharmacist with hands-on experience in pharmaceutical
+        manufacturing, quality assurance, and regulatory compliance at
+        Gland Pharma.
+      </p>
+    </div>
+    <div class="card">
+      <h3>Expertise</h3>
+      <ul>
+        <li>✔ Sterile Manufacturing</li>
+        <li>✔ GMP Compliance</li>
+        <li>✔ Quality Control</li>
+        <li>✔ Team Leadership</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container reveal">
+    <h2>Services</h2>
+    <div class="services">
+      <div class="card">Pharmaceutical Quality Management</div>
+      <div class="card">Process Optimization</div>
+      <div class="card">Regulatory Documentation</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container reveal">
+    <h2>Projects</h2>
+    <div class="filters">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="quality">Quality</button>
+      <button data-filter="manufacturing">Manufacturing</button>
+    </div>
+    <div class="projects">
+      <div class="card project quality">Quality Improvement Initiative</div>
+      <div class="card project manufacturing">Sterile Process Upgrade</div>
+      <div class="card project quality">Audit Readiness Program</div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="container reveal">
+    <h2>Blog</h2>
+    <div class="blogs">
+      <div class="card">Importance of GMP in Pharma</div>
+      <div class="card">Future of Injectable Drugs</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container reveal">
+    <h2>Contact Me</h2>
+    <form id="contactForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <input type="email" id="email" placeholder="Email Address" required />
+      <textarea id="message" placeholder="Your Message"></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  © 2026 Anitha Aningi | Pharmacist
+</footer>
+
+<!-- =====================
+    JAVASCRIPT
+===================== -->
+<script>
+// PRELOADER
+window.addEventListener("load", () => {
+  document.getElementById("preloader").style.display = "none";
+});
+
+// HAMBURGER MENU
+const hamburger = document.getElementById("hamburger");
+const menu = document.getElementById("menu");
+
+hamburger.onclick = () => {
+  menu.classList.toggle("open");
+};
+
+// SCROLL REVEAL
+const reveals = document.querySelectorAll(".reveal");
+window.addEventListener("scroll", () => {
+  reveals.forEach(el => {
+    const top = el.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      el.classList.add("active");
+    }
+  });
+});
+
+// ACTIVE NAV LINK
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll("nav a");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+  sections.forEach(sec => {
+    const secTop = sec.offsetTop - 150;
+    if (scrollY >= secTop) current = sec.id;
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === "#" + current) {
+      link.classList.add("active");
+    }
+  });
+});
+
+// PROJECT FILTER
+document.querySelectorAll(".filters button").forEach(btn => {
+  btn.onclick = () => {
+    document.querySelector(".filters .active").classList.remove("active");
+    btn.classList.add("active");
+    const filter = btn.dataset.filter;
+
+    document.querySelectorAll(".project").forEach(card => {
+      card.style.display =
+        filter === "all" || card.classList.contains(filter)
+        ? "block" : "none";
+    });
+  };
+});
+
+// FORM VALIDATION
+document.getElementById("contactForm").addEventListener("submit", e => {
+  e.preventDefault();
+  alert("Thank you! Your message has been sent.");
+  e.target.reset();
+});
+</script>
+
+</body>
+</html>
